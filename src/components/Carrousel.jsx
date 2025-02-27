@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import styles from "./carrousel.module.css";
 import { Link } from "react-router-dom";
 
-const recipes = [
+/*const recipes = [
         { img: "/LastRecepies/1.png", name: "Pasta with mushrooms", link: "#" },
         { img: "/LastRecepies/2.png", name: "Pancakes with fruits", link: "#" },
         { img: "/LastRecepies/3.png", name: "Pasta with shrimps", link: "#" },
@@ -23,11 +23,11 @@ const recipes = [
         { img: "/LastRecepies/18.png", name: "Homemade croissants", link: "#" },
         { img: "/LastRecepies/19.png", name: "Greek salad", link: "#" },
         { img: "/LastRecepies/20.png", name: "Granola with fruits", link: "#" },
-    ];
+    ];*/
 
 
 const Carrousel = () => {
-    /*const [recipes, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const Carrousel = () => {
         };
 
         fetchRecipes();
-    }, []);*/
+    }, []);
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -71,10 +71,10 @@ const Carrousel = () => {
         return items;
     };
     
-   /* if (loading) {
+   if (loading) {
         return <p>Loading recipes...</p>;
     }
-*/
+
     return (
         <div className={styles.container}>
             <div className={styles.title}>
