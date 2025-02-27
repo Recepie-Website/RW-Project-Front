@@ -1,73 +1,29 @@
+.header {
+  height: 10vh; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 0 2vw;
+  font-size: 22px;
+  font-weight: 500;
+  box-sizing: border-box;
+  position: relative; 
+}
+
+
+.center_img {
+  width: 6vw;
+  height: auto;
+  object-fit: contain;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); 
+}
 .link {
   text-decoration: none;
   color: #000;
   cursor: pointer;
   font-family: 'Comfortaa', sans-serif;
-}
-
-.header {
-  height: 12vh; /* Збільшена висота для розміщення логотипа */
-  position: relative;
-  display: flex;
-  justify-content: space-between; /* Вирівнювання елементів по краях */
-  align-items: center;
-  padding: 0 2vw; /* Відступи по боках для вмісту */
-  font-weight: 500;
-  font-size: 25px;
-  box-sizing: border-box; /* Для врахування padding у загальну висоту */
-}
-
-.center_img {
-  width: 8vw; /* Масштаб логотипа */
-  height: auto; /* Збереження пропорцій логотипа */
-  object-fit: contain; /* Забезпечує повне відображення логотипа */
-}
-
-.group1,
-.group2 {
-  display: flex;
-  align-items: center; /* Вирівнювання елементів групи по вертикалі */
-  width: 35%;
-}
-
-.g1_item1 {
-  margin-left: auto;
-  margin-right: 2vw; /* Повернуто відступ праворуч */
-  font-family: 'Comfortaa', sans-serif;
-}
-
-.g1_item2 {
-  margin-right: 2vw; /* Повернуто відступ праворуч */
-  font-family: 'Comfortaa', sans-serif;
-}
-
-.g2_item1 {
-  margin-left: 2vw; /* Повернуто відступ ліворуч */
-  font-family: 'Comfortaa', sans-serif;
-}
-
-.g2_item2 {
-  margin-left: 2vw; /* Повернуто відступ ліворуч */
-  font-family: 'Comfortaa', sans-serif;
-}
-
-.right {
-  position: absolute;
-  right: 2vw; /* Відступ від правого краю */
-  display: flex;
-  align-items: center; /* Вирівнювання іконок по вертикалі */
-  gap: 1vw; /* Проміжок між елементами */
-}
-
-.search_img { 
-  width: 26px;
-  aspect-ratio: 1;
-  margin-right: 2vw; /* Повернуто відступ праворуч */
-}
-
-.profile_img {
-  width: 26px;
-  aspect-ratio: 1;
 }
 
 .search_button {
@@ -76,73 +32,38 @@
   cursor: pointer;
   padding: 5px;
 }
-
-.search_window {
-  position: absolute;
-  top: 70px;
-  left: 20px;
-  right: 20px;
-  background-color: #FFF9F2;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 25px;
-  z-index: 10;
-  
-}
-
-.search_bar {
+.group1,
+.group2,
+.right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 2vw;
 }
 
-.search_input {
+
+.group1 {
   flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  font-family: "Comfortaa", sans-serif; 
+  display: flex;
+  justify-content: flex-start;
 }
 
-.submit_button,
-.close_button {
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
+.group2 {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.submit_button {
-  padding: 8px 12px;
-  color: white;
-  border-radius: 4px;
-}
+@media (max-width: 768px) {
+  .header {
+    font-size: 12px;
+    height: 8vh; 
+  }
 
-.history_section {
-  justify-self: left;
-  margin-top: 20px;
-}
+  .center_img {
+    width: 12vw;
+  }
 
-.history_section h4 {
-  margin-bottom: 10px;
-  color: #333;
-  font-family: "Comfortaa", sans-serif; 
-}
-
-.history_list {
-  justify-self: left;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  color: #666;
-}
-
-.history_item {
-  padding: 5px 0;
-  border-bottom: 1px solid #f1f1f1;
-  font-family: "Comfortaa", sans-serif; 
-}
-
-.history_item:last-child {
-  border-bottom: none;
+  .group1, .group2, .right {
+    gap: 1vw; 
+  }
 }

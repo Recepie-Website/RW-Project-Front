@@ -5,41 +5,112 @@
   background-color: #F6ECE1;
   display: flex;
   align-items: center;
-  position: relative; 
+  justify-content: space-between;
+  position: relative;
 }
 
 .logo {
   width: 15%;
   position: absolute;
-  left: 50%; 
-  transform: translateX(-50%); 
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .social {
   margin: 10px;
+  width: 30px; /* Розмір іконок */
+  height: auto;
 }
 
-.links_right {
+.links_right,
+.links_left {
   font-size: 24px;
-  margin-left: auto;
-  
 }
 
 .links_left {
-  font-size: 24px;
-  margin-right: auto; 
+  margin-right: auto;
+}
+
+.links_right {
+  margin-left: auto;
 }
 
 .links_left div {
-  font-family: 'Comfortaa', sans-serif; 
+  font-family: 'Comfortaa', sans-serif;
 }
-
-
 
 .link {
   text-decoration: none;
   color: #000;
   cursor: pointer;
   font-family: 'Comfortaa', sans-serif;
-  
+  font-size: 20px;
+}
+
+/* ===== АДАПТИВНІ СТИЛІ ===== */
+
+@media (max-width: 1024px) {
+  .Footer {
+    height: 22vh;
+  }
+
+  .logo {
+    width: 12%;
+  }
+
+  .link {
+    font-size: 18px;
+  }
+
+  .social {
+    width: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .Footer {
+    flex-direction: column;
+    height: auto;
+    padding: 3vh 5vw;
+    text-align: center;
+  }
+
+  .logo {
+    width: 10%;
+    position: static;
+    transform: none;
+    margin: 10px 0;
+  }
+
+  .links_left,
+  .links_right {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .link {
+    font-size: 16px;
+  }
+
+  .social {
+    width: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Footer {
+    padding: 5vh 5vw;
+  }
+
+  .logo {
+    width: 15%;
+  }
+
+  .link {
+    font-size: 14px;
+  }
+
+  .social {
+    width: 20px;
+  }
 }
