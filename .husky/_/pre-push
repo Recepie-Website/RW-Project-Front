@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
+
+echo "🔍 Running ESLint and Prettier before push..."
+
+npm run lint && npm run format
+
+if [ $? -ne 0 ]; then
+  echo "❌ Push rejected due to ESLint or Prettier errors."
+  exit 1
+fi
+
+echo "✅ Code quality checks passed. Pushing..."
