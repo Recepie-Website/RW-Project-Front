@@ -206,14 +206,8 @@ const AddRecipeWithImage = ({ onClose }) => {
 
         <Link to="/profile">
           <div
-            className={styles.close}
-            onClick={(e) => {
-              e.preventDefault();
-              if (typeof onClose === 'function') {
-                onClose();
-              }
-            }}
-          >
+            className={styles.close} >
+
             ✕
           </div>
         </Link>
