@@ -21,31 +21,30 @@ const RandomCardSet = () => {
   const [animating, setAnimating] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const handleRandomize = async () => {
-    setAnimating(true);
-    try {
-      const response = await fetch(`${API_URL}/api/random-recipe`);
-      const data = await response.json();
+const handleRandomize = async () => {
+  setAnimating(true);
+  try {
+    const response = await fetch(`${API_URL}/api/random-recipe`);
+    const data = await response.json();
 
-      const recipe = data.recipe_id || data;
-      const newImages = [
-        fallbackImages[0],
-        {
-          src: recipe?.image_url || "/images/placeholder.png",
-          title: recipe?.title || "Unknown recipe",
-        },
-        fallbackImages[2],
-      ];
+    const newImages = [
+      fallbackImages[0],
+      {
+        src: data.image_url || "/images/placeholder.png",
+        title: data.title || "Unknown recipe",
+      },
+      fallbackImages[2],
+    ];
 
-      setTimeout(() => {
-        setImages(newImages);
-        setAnimating(false);
-      }, 2000);
-    } catch (error) {
-      console.error("Fetch error:", error);
+    setTimeout(() => {
+      setImages(newImages);
       setAnimating(false);
-    }
-  };
+    }, 2000);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    setAnimating(false);
+  }
+};
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
