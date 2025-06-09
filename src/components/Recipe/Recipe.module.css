@@ -49,10 +49,8 @@
 }
 
 .recipeName {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 90%;
+  margin-top: 10px;
+  width: 100%;
   padding: 6px;
   border: none;
   background: rgba(255, 255, 255, 0.8);
@@ -60,6 +58,7 @@
   font-size: 13px;
   font-family: 'Comfortaa', sans-serif;
 }
+
 
 .uploadIcon {
   font-size: 36px;
@@ -86,6 +85,7 @@
   padding: 8px;
   margin-top: 4px;
   font-family: 'Comfortaa', sans-serif;
+  border-radius: 15px;
 }
 
 .ingredients {
@@ -111,12 +111,15 @@
   display: flex;
   gap: 20px;
   margin-top: 15px;
+  padding-right: 5px;
 }
 
 .dropdowns select {
   padding: 5px 10px;
   font-size: 14px;
     font-family: 'Comfortaa', sans-serif;
+    border-radius: 15px;
+    padding-right: 5px;
 }
 
 .addButton {
@@ -136,4 +139,15 @@
   right: 15px;
   font-size: 20px;
   cursor: pointer;
+}
+
+.uploadContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }

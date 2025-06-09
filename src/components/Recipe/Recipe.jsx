@@ -98,29 +98,31 @@ const AddRecipeWithImage = ({ onClose }) => {
       }}
     >
       <div className={styles.recipeForm} onClick={(e) => e.stopPropagation()}>
-        <div
-          className={styles.uploadBox}
-          onClick={() => document.getElementById('imageInput').click()}
-        >
-          <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            hidden
-            onChange={handleImageChange}
-          />
+        <div>
+          <div
+            className={styles.uploadBox}
+            onClick={() => document.getElementById('imageInput').click()}
+          >
+            <input
+              type="file"
+              id="imageInput"
+              accept="image/*"
+              hidden
+              onChange={handleImageChange}
+            />
 
-          {imagePreview ? (
-            <img src={imagePreview} alt="preview" className={styles.previewImage} />
-          ) : (
-            <div id="uploadContent">
-              <div className={styles.uploadIcon}>⬆</div>
-              <p>
-                drop your image here, or{' '}
-                <span className={styles.browse}>browse</span>
-              </p>
-            </div>
-          )}
+            {imagePreview ? (
+              <img src={imagePreview} alt="preview" className={styles.previewImage} />
+            ) : (
+              <div className={styles.uploadContent} >
+                <div className={styles.uploadIcon}>⬆</div>
+                <p>
+                  drop your image here, or{' '}
+                  <span className={styles.browse}>browse</span>
+                </p>
+              </div>
+            )}
+          </div>
 
           <input
             type="text"
