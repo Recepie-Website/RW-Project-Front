@@ -12,19 +12,21 @@ const AddRecipeWithImage = ({ onClose }) => {
   const [category, setCategory] = useState('');
   const [cuisine, setCuisine] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [imageFile, setImageFile] = useState(null);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
+    setImageFile(file); // save the file itself
+
     const reader = new FileReader();
     reader.onload = (e) => {
-      const base64 = e.target.result;
-      setImagePreview(base64);
-      setImageUrl(base64);
+      setImagePreview(e.target.result); // just for preview
     };
     reader.readAsDataURL(file);
   };
+
 
   const handleAddIngredient = () => {
     setIngredients([...ingredients, '']);
@@ -43,22 +45,26 @@ const AddRecipeWithImage = ({ onClose }) => {
     }
 
     try {
-      const recipeData = {
-        title,
-        description,
-        category,
-        cuisine,
-        image_url: imageUrl,
-        ingredients: ingredients.filter((ing) => ing.trim() !== ''),
-      };
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('category', category);
+      formData.append('cuisine', cuisine);
+      formData.append('ingredients', JSON.stringify(ingredients.filter((ing) => ing.trim() !== '')));
+
+      if (imageFile) {
+        formData.append('image', imageFile); // important! use 'image' or the field your backend expects
+      }
+
+      //test
+      for (let pair of formData.entries()) {
+        console.log(pair[0]+ ':', pair[1]);
+      }
 
       const response = await fetch(`${API_URL}/api/recipes/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(recipeData),
+        method: 'POST',
+        credentials: 'include',
+        body: formData, // no need to set Content-Type here — browser will do it
       });
 
       const data = await response.json();
@@ -70,12 +76,14 @@ const AddRecipeWithImage = ({ onClose }) => {
       alert("Recipe added successfully!");
       console.log("Recipe added:", data);
 
+      // reset form
       setTitle('');
       setDescription('');
       setCategory('');
       setCuisine('');
       setImagePreview(null);
       setImageUrl('');
+      setImageFile(null);
       setIngredients(['']);
 
       if (typeof onClose === 'function') {
@@ -87,6 +95,7 @@ const AddRecipeWithImage = ({ onClose }) => {
       console.error(err);
     }
   };
+
 
   return (
     <div
