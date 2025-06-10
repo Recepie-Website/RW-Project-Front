@@ -209,7 +209,7 @@ const AddRecipeWithImage = ({ onClose }) => {
           </div>
 
           <button className={styles.addButton} type="button" onClick={handleSubmit}>
-            add
+            Create Recipe
           </button>
         </div>
 
