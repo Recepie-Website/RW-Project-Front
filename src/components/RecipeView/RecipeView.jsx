@@ -12,6 +12,7 @@ const RecipeView = ({ recipeId, onClose }) => {
         const res = await fetch(`${API_URL}/api/recipes/${recipeId}`);
         const data = await res.json();
         setRecipe(data);
+        console.log(data);
       } catch (err) {
         console.error("Error loading recipe:", err);
       }

@@ -12,11 +12,14 @@ const ProfilePage = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isRecipeOpen, setIsRecipeOpen] = useState(false);
 
-  // const AddedRecepies = [];
-  // const SavedRecepies = [];
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [createdRecipes, setCreatedRecipes] = useState([]);
 
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRecipeId, setSelectedRecipeId] = useState(null);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   const openRecipeView = () => setIsRecipeOpen(true);
   const closeRecipeView = () => setIsRecipeOpen(false);
@@ -199,7 +202,11 @@ const ProfilePage = () => {
         )}
       </div>
 
-      {isRecipeOpen && <RecipeView onClose={closeRecipeView} />}
+      {isRecipeOpen && <RecipeView recipeId onClose={closeRecipeView} />}
+
+      {showModal && selectedRecipeId && (
+        <RecipeView recipeId={selectedRecipeId} onClose={closeModal} />
+      )}
       <Footer />
     </>
   );

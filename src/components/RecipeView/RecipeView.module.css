@@ -58,6 +58,7 @@
 }
 
 .info {
+  width: 300px;
   flex: 1;
   position: relative;
 }
