@@ -117,7 +117,7 @@ const ProfilePage = () => {
           </div>
           <div className={styles.profileImageContainer}>
             <img
-              src="ProfilePage/userimg.jfif"
+              src="ProfilePage/varenik.jpg"
               alt="Profile"
               className={styles.profileImage}
             />
