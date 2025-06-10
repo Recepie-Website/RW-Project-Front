@@ -27,13 +27,13 @@ html {
 }
 
 .placeholderText {
-  color: #999;
+  color: #000000;
   margin: 0;
   font-family: 'Comfortaa', sans-serif;
 }
 
 .addButton {
-  background-color: #FF6F61; 
+  background: #FF5C39;
   color: white;
   border: none;
   border-radius: 20px;

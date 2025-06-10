@@ -12,8 +12,10 @@ const ProfilePage = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isRecipeOpen, setIsRecipeOpen] = useState(false);
 
-  const AddedRecepies = [];
-  const SavedRecepies = []; 
+  // const AddedRecepies = [];
+  // const SavedRecepies = [];
+  const [savedRecipes, setSavedRecipes] = useState([]);
+  const [createdRecipes, setCreatedRecipes] = useState([]);
 
 
   const openRecipeView = () => setIsRecipeOpen(true);
@@ -38,10 +40,36 @@ const ProfilePage = () => {
       const data = await res.json();
       setProfile(data);
       console.log(data);
+
+      // RETURN profile data here so next step can use it
+      return data;
     } catch (err) {
       console.error("Failed to load profile", err);
       setProfile(null);
 
+      navigate("/login");
+      throw err; // rethrow so .then is skipped
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchCreatedRecipes = async (user_id) => {
+    try {
+      const res = await fetch(`${API_URL}/api/recipes/saved?user_id=${user_id}`, {
+        method: "GET",
+        credentials: "include",
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message);
+      }
+
+      const data = await res.json();
+      setCreatedRecipes(data);
+      console.log(data);
+    } catch (err) {
+      console.error("Failed to load created recipes", err);
       navigate("/login");
     } finally {
       setLoading(false);
@@ -49,8 +77,13 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    fetchProfile();
+    fetchProfile().then(profileData => {
+      if (profileData) {
+        fetchCreatedRecipes(profileData.user_id);
+      }
+    });
   }, []);
+
 
   if (loading) {
     return <div>Loading profile...</div>;
@@ -106,13 +139,13 @@ const ProfilePage = () => {
           <h1 className={styles.loremText}>My Creations</h1>
         </div>
 
-        {AddedRecepies.length === 0 ? (
+        {createdRecipes.length === 0 ? (
           <p className={styles.noRecipes}>No added recipes yet.</p>
         ) : (
           <div className={styles.imageGrid_1}>
-            {AddedRecepies.map((num) => (
+            {createdRecipes.map((recipe) => (
               <div
-                key={num}
+                key={recipe.recipe_id}
                 className={styles.imageCard}
                 onClick={openRecipeView}
                 role="button"
@@ -122,11 +155,11 @@ const ProfilePage = () => {
                 }}
               >
                 <img
-                  src={`images/image${num}.png`}
-                  alt={`Recipe ${num}`}
+                  src={recipe.image_url} // Use recipe.image_url from backend!
+                  alt={recipe.title}
                   className={styles.gridImage}
                 />
-                <p className={styles.imageCaption}>RECIPE {num}</p>
+                <p className={styles.imageCaption}>{recipe.title}</p>
                 <span className={styles.arrow}>↗</span>
               </div>
             ))}
@@ -137,13 +170,13 @@ const ProfilePage = () => {
           <h1 className={styles.loremText}>Taste Collection</h1>
         </div>
 
-        {SavedRecepies.length === 0 ? (
+        {savedRecipes.length === 0 ? (
           <p className={styles.noRecipes}>No saved recipes yet.</p>
         ) : (
           <div className={styles.imageGrid_1}>
-            {SavedRecepies.map((num) => (
+            {savedRecipes.map((recipe) => (
               <div
-                key={num}
+                key={recipe.recipe_id}
                 className={styles.imageCard}
                 onClick={openRecipeView}
                 role="button"
@@ -153,14 +186,15 @@ const ProfilePage = () => {
                 }}
               >
                 <img
-                  src={`images/image${num}.png`}
-                  alt={`Recipe ${num}`}
+                  src={recipe.image_url} // Use recipe.image_url from backend!
+                  alt={recipe.title}
                   className={styles.gridImage}
                 />
-                <p className={styles.imageCaption}>RECIPE {num}</p>
+                <p className={styles.imageCaption}>{recipe.title}</p>
                 <span className={styles.arrow}>↗</span>
               </div>
             ))}
+
           </div>
         )}
       </div>
