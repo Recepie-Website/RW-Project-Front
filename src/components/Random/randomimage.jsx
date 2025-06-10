@@ -19,32 +19,35 @@ function getThreeRandomImages() {
 const RandomCardSet = () => {
   const [images, setImages] = useState(getThreeRandomImages());
   const [animating, setAnimating] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
+  const [selectedRecipeId, setSelectedRecipeId] = useState(null);
 
-const handleRandomize = async () => {
-  setAnimating(true);
-  try {
-    const response = await fetch(`${API_URL}/api/random-recipe`);
-    const data = await response.json();
+  const handleRandomize = async () => {
+    setAnimating(true);
+    try {
+      const response = await fetch(`${API_URL}/api/random-recipe`);
+      const data = await response.json();
 
-    const newImages = [
-      fallbackImages[0],
-      {
-        src: data.image_url || "/images/placeholder.png",
-        title: data.title || "Unknown recipe",
-      },
-      fallbackImages[2],
-    ];
+      const newImages = [
+        fallbackImages[0],
+        {
+          src: data.image_url || "/images/placeholder.png",
+          title: data.title || "Unknown recipe",
+          recipe_id: data.recipe_id,
+        },
+        fallbackImages[2],
+      ];
 
-    setTimeout(() => {
-      setImages(newImages);
+      setTimeout(() => {
+        setImages(newImages);
+        setAnimating(false);
+      }, 2000);
+    } catch (error) {
+      console.error("Fetch error:", error);
       setAnimating(false);
-    }, 2000);
-  } catch (error) {
-    console.error("Fetch error:", error);
-    setAnimating(false);
-  }
-};
+    }
+  };
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
@@ -60,6 +63,7 @@ const handleRandomize = async () => {
           Start
         </button>
       </div>
+
       <div className={styles.right_red_section}>
         <div className={styles.cardsContainer}>
           {images.map((item, index) => (
@@ -72,11 +76,20 @@ const handleRandomize = async () => {
                   ? styles.cardCenter
                   : styles.cardRight
               } ${animating ? styles.move : ""}`}
-              onClick={index === 1 ? openModal : undefined}
+
+              onClick={() => {
+                if (index === 1) {
+                  setSelectedRecipeId(item.recipe_id);
+                  openModal();
+                }
+              }}
               role={index === 1 ? "button" : undefined}
               tabIndex={index === 1 ? 0 : undefined}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && index === 1) openModal();
+                if (e.key === "Enter" && index === 1) {
+                  setSelectedRecipeId(item.recipe_id);
+                  openModal();
+                }
               }}
               style={{ cursor: index === 1 ? "pointer" : "default" }}
             >
@@ -87,7 +100,9 @@ const handleRandomize = async () => {
         </div>
       </div>
 
-      {showModal && <RecipeView onClose={closeModal} />}
+      {showModal && selectedRecipeId && (
+        <RecipeView recipeId={selectedRecipeId} onClose={closeModal} />
+      )}
     </div>
   );
 };
